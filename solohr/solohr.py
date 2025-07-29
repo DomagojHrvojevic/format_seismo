@@ -31,22 +31,7 @@
                     save_path ->                    path for saving hourly formatted SANDI mseed data
 
                     smartsolo_stations_metadata ->  path to smartsolo_stations.txt file which contains stations essential description
-
-    Date:           25.3.2025. - 27.3.2025.
-
-    Web page:       /
 """
-
-###########################################################PYTHON_LIBRARY###########################################################
-
-import obspy as ob
-import pandas as pd
-import numpy as np
-import os
-
-###########################################################PYTHON_FUNCTIONS###########################################################
-
-###########################################################PYTHON_CODE###########################################################
 
 #!/usr/bin/python3
 
