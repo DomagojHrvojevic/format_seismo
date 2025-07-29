@@ -1,9 +1,9 @@
-#**format_seismo**
+#format_seismo
 Preprocessing seismological data
 
-##**Modules**
+##Modules
 
-###**solohr**
+###solohr
 Formatting seismological data gathered by Smartsolo portable seismograph to hourly timestep.
 Smartsolo instrument writes seismological data in .MiniSeed format.
 
@@ -17,7 +17,7 @@ data_path_dynamic ->            path to folder containing mseed files of smartso
 save_path ->                    path for saving hourly formatted SANDI mseed data
 
 
-###**Instalation**
+###Instalation
 Just write:
 ```
 pip install format_seizmo
