@@ -1,38 +1,3 @@
-###########################################################DESCRIPTION###########################################################
-
-"""
-    Description:    Formatting seismological data gathered by Smartsolo portable seismograph for SANDI software usage.
-                    Smartsolo instrument writes seismological data in .MiniSeed format.
-                    This code is modificated and refined from /home/domagoj/DuFAULT/DATA/data_modules.py.
-
-    Author:         Domagoj Hrvojevic
-
-    Remark:         Working with miniconda ispaq environment.
-                    OS version:         Ubuntu-22.04
-                    Python version:     3.8.19
-                    pandas version:     1.5.3
-                    obspy version:      1.4.0
-                    numpy version:      1.24.4
-
-                    Before formatting data it is important to write stations metadata in txt file: /mnt/d/smartsolo_data/smartsolo_stations.txt
-                    In this text file, the ID parameter of each station corresponds to the name of the folder containing the mseed data for that station.
-
-                    4.4.2025. - Added better path for input data (data_path_static); print description of current process; formatting Paklenica-NET dataset
-
-                    PATHS:
-
-                    data_path_static ->             path to folder containing folders of smartsolo stations data
-                                                    for example: '/mnt/d/smartsolo_data/Paklenica-NET'
-
-                    data_path_dynamic ->            path to folder containing mseed files of smartsolo stations (changes depending on processed station)
-                                                    for example:    '/mnt/d/smartsolo_data/Paklenica-NET/Lovinac/20250322113540'
-                                                                    '/mnt/d/smartsolo_data/Paklenica-NET/Posedarje/20250322044132'...
-
-                    save_path ->                    path for saving hourly formatted SANDI mseed data
-
-                    smartsolo_stations_metadata ->  path to smartsolo_stations.txt file which contains stations essential description
-"""
-
 #!/usr/bin/python3
 
 #data paths
