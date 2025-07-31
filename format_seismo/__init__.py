@@ -1,1 +1,1 @@
-from format_seismo import solohr
+from .format_seismo import solohr
