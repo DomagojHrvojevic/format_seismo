@@ -6,7 +6,7 @@ authors = [{ name = "Domagoj Hrvojevic", email = "domagoj@example.com" }]
 license = "MIT"
 readme = "README.md"
 requires-python = ">=3.8"
-dependencies = []
+dependencies = ['obspy', 'numpy']
 
 [build-system]
 requires = ["setuptools>=61.0"]

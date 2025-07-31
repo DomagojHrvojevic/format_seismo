@@ -1,11 +1,10 @@
-import pandas as pd
 import obspy as ob
 import numpy as np
 import warnings
 import os
 import gc
 
-def solohr(IN_path, OUT_path=None, station_code='CODE', station_net='NET', language='cro'):
+def solohr(IN_path, OUT_path=None, station_code='CODE', station_net='NET', language='cro', silent=False):
 
     #check if IN_path and OUT_path are provided
     if IN_path == '':
@@ -55,7 +54,9 @@ def solohr(IN_path, OUT_path=None, station_code='CODE', station_net='NET', langu
     for count_1,mseed_files_by_components in enumerate(smartsolo_files):
 
         #print info for user to know which step of data formatting is being processed
-        print(f'Working on station: {station_code}, network: {station_net}, component: {components_100Hz_125Hz[count_1][-1]}')
+        if silent == False:
+            print(f'Working on station: {station_code}, network: {station_net}, component: {components_100Hz_125Hz[count_1][-1]}')
+        
 
         #loop list of mseed files of one component
         for count_2,mseed_file in enumerate(mseed_files_by_components):
@@ -111,11 +112,13 @@ def solohr(IN_path, OUT_path=None, station_code='CODE', station_net='NET', langu
             #if folder doesn't exist, create it
             if not os.path.exists(out_folder):
                 os.makedirs(out_folder)
-                print("Directory ", out_folder, " created.")
+                if silent == False:
+                    print("Directory ", out_folder, " created.")
 
             #write hourly data
             file_cut.write(f'{out_folder}/{out_file}', format='MSEED')
-            print("Formatted file", out_file)
+            if silent == False:
+                print("Formatted file", out_file)
 
             #remove file_cut variable
             file_cut.clear()
