@@ -1,5 +1,5 @@
 # format_seismo
-Preprocessing seismological data
+`format_seismo` is a package for preprocessing seismological data. It utilizes functions from the`obspy` [^1] and `numpy` [^2] libraries.
 
 ## Instalation
 Install from PyPI:
@@ -109,3 +109,6 @@ user@DESKTOP:/mnt/formatted_solo_data$ tree
         │   │   └── stat_z_250_20250705_0000.mseed
 ...
 ```
+### References
+[^1]: [ObsPy](https://github.com/obspy/obspy) - Python framework for processing seismological data
+[^2]: [NumPy](https://github.com/numpy/numpy) - Fundamental package for scientific computing with Python
