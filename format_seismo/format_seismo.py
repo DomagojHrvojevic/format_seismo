@@ -14,26 +14,25 @@ def solohr(IN_path, OUT_path=None, station_code='CODE', station_net='NET', langu
         OUT_path = IN_path + '/hourly_formatted_data'
         warnings.warn(f"Warning: OUT_path not specified. Using default path: {OUT_path}")
 
-    #check what language user chose
-    if language == 'cro': #Croatian
-        year = '_godina'; month = 'mjesec_'; day = 'dan_'; hour = 'sat_'
-    elif language == 'deu':  #German
-        year = '_jahr'; month = 'monat_'; day = 'tag_'; hour = 'stunde_'
-    elif language == 'spa':  #Spanish
-        year = '_año'; month = 'mes_'; day = 'día_'; hour = 'hora_'
-    elif language == 'fra':  #French
-        year = '_année'; month = 'mois_'; day = 'jour_'; hour = 'heure_'
-    elif language == 'zho':  #Chinese (Simplified)
-        year = '_年'; month = '月_'; day = '日_'; hour = '时_'
-    elif language == 'eng': #English
-        year = '_year'; month = 'month_'; day = 'day_'; hour = 'hour_'
-        
-
     #check if station_code and station_net are provided
     if station_code == 'CODE':
         warnings.warn("Warning: Default station code 'CODE' is used. Please provide a valid station code.")
     if station_net == 'NET':
         warnings.warn("Warning: Default network code 'NET' is used. Please provide a valid network code.")
+
+    #check what language user chose
+    if language == 'cro': #Croatian
+        year = 'godina_'; month = 'mjesec_'; day = 'dan_'; hour = 'sat_'
+    elif language == 'deu':  #German
+        year = 'jahr_'; month = 'monat_'; day = 'tag_'; hour = 'stunde_'
+    elif language == 'spa':  #Spanish
+        year = 'año_'; month = 'mes_'; day = 'día_'; hour = 'hora_'
+    elif language == 'fra':  #French
+        year = 'année_'; month = 'mois_'; day = 'jour_'; hour = 'heure_'     
+    elif language == 'zho':  #Chinese (Simplified)
+        year = '年_'; month = '月_'; day = '日_'; hour = '时_'
+    elif language == 'eng': #English
+        year = 'year_'; month = 'month_'; day = 'day_'; hour = 'hour_'
     
     #list of smartsolo and regular components (Z=Z, X=N, Y=E)
     components_100Hz_125Hz = ['HHZ','HHN','HHE']
@@ -112,11 +111,11 @@ def solohr(IN_path, OUT_path=None, station_code='CODE', station_net='NET', langu
             #if folder doesn't exist, create it
             if not os.path.exists(out_folder):
                 os.makedirs(out_folder)
-                print("Directory " , out_folder,  " created.")
+                print("Directory ", out_folder, " created.")
 
             #write hourly data
             file_cut.write(f'{out_folder}/{out_file}', format='MSEED')
-            print(out_file)
+            print("Formatted file", out_file)
 
             #remove file_cut variable
             file_cut.clear()
