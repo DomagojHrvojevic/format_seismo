@@ -5,7 +5,7 @@ import warnings
 import os
 import gc
 
-def hformat(IN_path, OUT_path=None, station_code='CODE', station_net='NET'):
+def solohr(IN_path, OUT_path=None, station_code='CODE', station_net='NET', language='cro'):
 
     #check if IN_path and OUT_path are provided
     if IN_path == '':
@@ -13,6 +13,21 @@ def hformat(IN_path, OUT_path=None, station_code='CODE', station_net='NET'):
     if OUT_path is None:
         OUT_path = IN_path + '/hourly_formatted_data'
         warnings.warn(f"Warning: OUT_path not specified. Using default path: {OUT_path}")
+
+    #check what language user chose
+    if language == 'cro': #Croatian
+        year = '_godina'; month = 'mjesec_'; day = 'dan_'; hour = 'sat_'
+    elif language == 'deu':  #German
+        year = '_jahr'; month = 'monat_'; day = 'tag_'; hour = 'stunde_'
+    elif language == 'spa':  #Spanish
+        year = '_año'; month = 'mes_'; day = 'día_'; hour = 'hora_'
+    elif language == 'fra':  #French
+        year = '_année'; month = 'mois_'; day = 'jour_'; hour = 'heure_'
+    elif language == 'zho':  #Chinese (Simplified)
+        year = '_年'; month = '月_'; day = '日_'; hour = '时_'
+    elif language == 'eng': #English
+        year = '_year'; month = 'month_'; day = 'day_'; hour = 'hour_'
+        
 
     #check if station_code and station_net are provided
     if station_code == 'CODE':
@@ -38,16 +53,16 @@ def hformat(IN_path, OUT_path=None, station_code='CODE', station_net='NET'):
     smartsolo_files = [smartsolo_files_z,smartsolo_files_x,smartsolo_files_y]
 
     #loop through list of lists of mseed data by components
-    for coun,mseed_files_by_components in enumerate(smartsolo_files):
+    for count_1,mseed_files_by_components in enumerate(smartsolo_files):
 
         #print info for user to know which step of data formatting is being processed
-        print(f'Working on station: {station_code}, network: {station_net}, component: {components_100Hz_125Hz[coun][-1]}')
+        print(f'Working on station: {station_code}, network: {station_net}, component: {components_100Hz_125Hz[count_1][-1]}')
 
         #loop list of mseed files of one component
-        for count,mseed_file in enumerate(mseed_files_by_components):
+        for count_2,mseed_file in enumerate(mseed_files_by_components):
             
             #reed all mseed files together for each component separately
-            if count == 0:
+            if count_2 == 0:
                 file = ob.read(IN_path + f'/{mseed_file}')
             else:
                 file += ob.read(IN_path + f'/{mseed_file}')
@@ -69,8 +84,9 @@ def hformat(IN_path, OUT_path=None, station_code='CODE', station_net='NET'):
         else:
             components = components_100Hz_125Hz
 
+        #starting time is first full hour of start_date that contains data
+        current_time_start = ob.UTCDateTime(start_time.year,start_time.month,start_time.day,start_time.hour)
         #while loop from start_time to end_time with delta = 1 hour
-        current_time_start = ob.UTCDateTime(start_time.year,start_time.month,start_time.day,start_time.hour) #starting time is first full hour of start_date that contains data
         while current_time_start <= end_time:
 
             #add 1 hour (3600s) to determine ending date of one sandi file
@@ -91,7 +107,7 @@ def hformat(IN_path, OUT_path=None, station_code='CODE', station_net='NET'):
             out_file = station_code.lower() + '_' + component[-1].lower() + '_' + str('%03i' % file_cut[0].stats.sampling_rate) + "_" + str('%04i' % current_time_start.year) + str('%02i' % current_time_start.month) + str('%02i' % current_time_start.day) + "_" + str('%02i' % current_time_start.hour) + '00.mseed'
 
             #output data folder
-            out_folder = OUT_path + '/godina_' + str(current_time_start.year) + '/mjesec_' + str('%02i' % current_time_start.month) + '/dan_' + str('%02i' % current_time_start.day) + '/sat_' + str('%02i' % current_time_start.hour)
+            out_folder = OUT_path + f'/{year}' + str(current_time_start.year) + f'/{month}' + str('%02i' % current_time_start.month) + f'/{day}' + str('%02i' % current_time_start.day) + f'/{hour}' + str('%02i' % current_time_start.hour)
 
             #if folder doesn't exist, create it
             if not os.path.exists(out_folder):

@@ -2,10 +2,11 @@
 name = "format_seismo"
 version = "0.1.0"
 description = "A Python package to format seismic data"
-authors = [{ name = "DomagojHrvojevic", email = "domagoj.hrvojevic@gfz.hr" }]
-license = { file = "LICENSE" }
+authors = [{ name = "Domagoj Hrvojevic", email = "domagoj@example.com" }]
+license = "MIT"
 readme = "README.md"
-dependencies = ['obspy', 'pandas', 'numpy']
+requires-python = ">=3.8"
+dependencies = []
 
 [build-system]
 requires = ["setuptools>=61.0"]
